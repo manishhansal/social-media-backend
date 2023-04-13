@@ -180,7 +180,7 @@ describe("Like Post Endpoint Test Suite", () => {
   // Test case 1: User can like a post
   it("User can like a post", async () => {
     const res = await request(app)
-      .put("/api/like/6437924ad37a1ce7bfeab78e")
+      .post("/api/like/6437924ad37a1ce7bfeab78e")
       .set("Accept", "application/json")
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
@@ -190,7 +190,7 @@ describe("Like Post Endpoint Test Suite", () => {
   // Test case 2: User cannot like a post without authentication
   it("User cannot like a post without authentication", async () => {
     const res = await request(app)
-      .put("/api/like/6437924ad37a1ce7bfeab78e")
+      .post("/api/like/6437924ad37a1ce7bfeab78e")
       .set("Accept", "application/json")
       .expect(401);
     assert(res.body.status === 401);
@@ -202,7 +202,7 @@ describe("Unlike Post Endpoint Test Suite", () => {
   // Test case 1: User can unlike a post
   it("User can unlike a post", async () => {
     const res = await request(app)
-      .put("/api/unlike/6437924ad37a1ce7bfeab78e")
+      .post("/api/unlike/6437924ad37a1ce7bfeab78e")
       .set("Accept", "application/json")
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
@@ -212,7 +212,7 @@ describe("Unlike Post Endpoint Test Suite", () => {
   // Test case 2: User cannot unlike a post without authentication
   it("User cannot unlike a post without authentication", async () => {
     const res = await request(app)
-      .put("/api/unlike/6437924ad37a1ce7bfeab78e")
+      .post("/api/unlike/6437924ad37a1ce7bfeab78e")
       .set("Accept", "application/json")
       .expect(401);
     assert(res.body.status === 401);
@@ -246,7 +246,7 @@ describe("Follow User Endpoint Test Suite", () => {
   // Test case 1: User can follow another user
   it("User can follow another user", async () => {
     const res = await request(app)
-      .put("/api/follow/abhis")
+      .post("/api/follow/abhis")
       .set("Accept", "application/json")
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
@@ -256,7 +256,7 @@ describe("Follow User Endpoint Test Suite", () => {
   // Test case 2: User cannot follow another user without authentication
   it("User cannot follow another user without authentication", async () => {
     const res = await request(app)
-      .put("/api/follow/abhis")
+      .post("/api/follow/abhis")
       .set("Accept", "application/json")
       .expect(401);
     assert(res.body.status === 401);
@@ -268,7 +268,7 @@ describe("Unfollow User Endpoint Test Suite", () => {
   // Test case 1: User can unfollow another user
   it("User can unfollow another user", async () => {
     const res = await request(app)
-      .put("/api/unfollow/abhis")
+      .post("/api/unfollow/abhis")
       .set("Accept", "application/json")
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
@@ -278,7 +278,7 @@ describe("Unfollow User Endpoint Test Suite", () => {
   // Test case 2: User cannot unfollow another user without authentication
   it("User cannot unfollow another user without authentication", async () => {
     const res = await request(app)
-      .put("/api/unfollow/abhis")
+      .post("/api/unfollow/abhis")
       .set("Accept", "application/json")
       .expect(401);
     assert(res.body.status === 401);
