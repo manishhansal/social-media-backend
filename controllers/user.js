@@ -376,6 +376,39 @@ const removeFollower = async (userId, follower_id) => {
   }
 };
 
+const updateFollowers = async (type, userId, follower_id) => {
+  try {
+    const following = await userModel.findOne({ userId: userId });
+    const number_of_followings = following.number_of_followings;
+    const follower = await userModel.findOne({ username: follower_id });
+    const number_of_followers = follower.number_of_followers;
+
+    const updatedNumberOfFollowings =
+      type === "follow" ? number_of_followings + 1 : number_of_followings - 1;
+    const updatedNumberOfFollowers =
+      type === "follow" ? number_of_followers + 1 : number_of_followers - 1;
+
+    await userModel.findOneAndUpdate(
+      {
+        userId: userId,
+      },
+      {
+        number_of_followings: updatedNumberOfFollowings,
+      }
+    );
+    await userModel.findOneAndUpdate(
+      {
+        username: follower_id,
+      },
+      {
+        number_of_followers: updatedNumberOfFollowers,
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const followUser = async (req, res) => {
   let { id } = req.params;
   let { userId } = req.headers;
@@ -421,6 +454,7 @@ const followUser = async (req, res) => {
         }
       );
       createFollower(following_id, userId);
+      updateFollowers("follow", userId, id);
       res.send({ status: 201, msg: "followed" });
     } else {
       let followers = await userFollowsModel.create({
@@ -428,6 +462,7 @@ const followUser = async (req, res) => {
         following: [{ userId: following_id }],
       });
       createFollower(following_id, userId);
+      updateFollowers("follow", userId, id);
       res.send({ status: 201, msg: "followed", followers });
     }
   } catch (e) {
@@ -466,7 +501,7 @@ const unfollowUser = async (req, res) => {
       );
 
       removeFollower(following_id, userId);
-
+      updateFollowers("", userId, id);
       return res
         .status(200)
         .json({ status: 200, msg: "unfollowed successfully" });
