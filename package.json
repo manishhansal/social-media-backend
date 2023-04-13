@@ -2,10 +2,11 @@
   "name": "social-media-platform-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js --dev"
+    "dev": "nodemon server.js --dev",
+    "test": "vitest --run --reporter verbose --testTimeout=10000"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,8 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
     "nodemon": "^2.0.22",
-    "uuid": "^9.0.0"
+    "supertest": "^6.3.3",
+    "uuid": "^9.0.0",
+    "vitest": "^0.30.1"
   }
 }
