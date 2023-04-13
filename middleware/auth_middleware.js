@@ -10,8 +10,8 @@ const authMiddleware = (req, res, next) => {
 
   try {
     if (verifyToken(token)) {
-      let email = tokenDecode(token);
-      req.headers.email = email;
+      let userId = tokenDecode(token);
+      req.headers.userId = userId;
       next();
     } else {
       return res.status(401).json({ msg: "you are not authorized" });

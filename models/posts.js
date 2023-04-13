@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const posts = new mongoose.Schema({
-  postId: { type: String },
+  postId: { type: String, default: new mongoose.Types.ObjectId() },
+  userId: { type: String, ref: "users" },
   title: { type: String },
   desc: { type: String },
   created_at: { type: Number, default: Date.now() },

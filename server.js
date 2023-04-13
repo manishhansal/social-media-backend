@@ -1,4 +1,3 @@
-// server.js
 const http = require("http");
 const app = require("./routes/user");
 const connectToDB = require("./db_connection/mongodb");
